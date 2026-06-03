@@ -1,0 +1,129 @@
+/* Variables de altura */
+:root {
+  --header-height: 60px;
+  --footer-height: 20px;
+}
+
+/* Body ocupa toda la pantalla */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #3e2564;
+  /* background: linear-gradient(
+    to bottom,
+    #1a1026 0%,
+    #2b1b3d 35%,
+    #3a2350 60%,
+    #24122f 100%
+  ); */
+}
+
+/* Header fijo arriba */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+
+  display: flex;
+  justify-content: flex-start; /* links a la izquierda */
+  align-items: center;
+  padding: 0 20px;
+
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Links del header */
+.navbar__links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.navbar__links a {
+  text-decoration: none;
+  color: #3e2564;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar__links a:hover,
+.navbar__links a.active {
+  background-color: #9372b9;
+  color: white;
+}
+
+/* MAIN*/
+main {
+  flex: 1;
+  margin-top: var(--header-height);
+  margin-bottom: var(--footer-height);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* GRID DE PERSONAJES */
+.main-container {
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  justify-content: center;
+
+  gap: 100px;
+  padding: 20px;
+}
+
+.character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 300px;
+  min-height: 400px;
+  padding: 15px;
+  background-color: rgba(216, 95, 194, 0.15); /* fondo sutil violeta/rosa translúcido */
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);    /* sombra más suave y difusa */
+  backdrop-filter: blur(4px);                 /* efecto vidrio suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.character-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;           /* bordes un poco más suaves */
+  border: 2px solid rgba(30, 144, 255, 0.7); /* contraste azul sutil */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.character-name {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e0c0ff;               /* color suave violeta/rosa claro */
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* contraste con el fondo */
+}
+
+
+.route-badge {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #0f172a;
+  color: #94a3b8;
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.route-badge span {
+  color: white;
+}
