@@ -1,5 +1,16 @@
+import { renderChat } from "./chat.js";
+import { getCharacter } from "../payload.js";
+import { updateRouteBadge } from "../router.js";
+import { currentCharacter, setCurrentCharacter } from "../services/chatService.js";
+
 export function renderHome () {
+
   const app = document.querySelector("#app");
+  const characters = [
+    { name: "Hermione Granger", key: "Hermione", img: "./resource/img/HG.jpg" },
+    { name: "Rubeus Hagrid", key: "Hagrid", img: "./resource/img/HG.jpg" },
+    { name: "Fred y George Weasley", key: "Gemelos", img: "./resource/img/HG.jpg" }
+  ]
 
   app.innerHTML = `
     <div class="view">
@@ -10,7 +21,7 @@ export function renderHome () {
       <div class="main-container">
 
         <div class="view">
-          <div class="character-container">
+          <div class="character-container" data-key="Hermione">
             <div class="character-image">
               <img src="./resource/img/HG.jpg" alt="imagen del personaje">
             </div>
@@ -19,7 +30,7 @@ export function renderHome () {
         </div>
 
         <div class="view">
-          <div class="character-container">
+          <div class="character-container" data-key="Hagrid">
             <div class="character-image">
               <img src="./resource/img/HG.jpg" alt="imagen del personaje">
             </div>
@@ -28,7 +39,7 @@ export function renderHome () {
         </div>
 
         <div class="view">
-          <div class="character-container">
+          <div class="character-container" data-key="Gemelos">
             <div class="character-image">
               <img src="./resource/img/HG.jpg" alt="imagen del personaje">
             </div>
@@ -39,4 +50,24 @@ export function renderHome () {
       </div>
     </div>
   `;
+
+  const conteiner = document.querySelector(".main-container");
+// Busco el contenedor del personaje para poder agregar la función de que 
+// se pueda hacer click en el contenedor del personaje, sea la imagen, 
+// o el nombre para poder ir directo a su chat, con su payload cargado.
+  conteiner.addEventListener("click", function(event) {
+    const character = event.target.closest(".character-container");
+    if(!character) return;
+
+    //payload personaje
+    const key = character.dataset.key;
+    const characterPayload = getCharacter(key); // key viene del dataset
+    setCurrentCharacter(characterPayload);      // guardo el payload completo
+    renderChat(characterPayload);               // paso el payload completo al chat
+
+    //Actualizo la url cuando voy al chat
+    history.pushState({ character: key }, "", "/chat");
+    updateRouteBadge("/chat");
+    console.log("elegiste el", {characters: key});
+  });
 }

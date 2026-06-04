@@ -41,7 +41,7 @@ function updateActiveLink() {
 }
 
 // badge que nos dice en qué ruta estamos
-function updateRouteBadge(path) {
+export function updateRouteBadge(path) {
   let badge = document.querySelector(".route-badge");
   if (!badge) {
     badge = document.createElement("div");
