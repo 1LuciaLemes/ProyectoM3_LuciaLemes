@@ -272,6 +272,14 @@ main {
   border-radius: 10px;
 }
 
+/* status */
+.loading {
+  color: black;
+}
+.hidden {
+  display: none;
+}
+
 /* BADGE */
 .route-badge {
   position: fixed;

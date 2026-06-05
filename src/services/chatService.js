@@ -1,3 +1,4 @@
+import { buildPayload } from "../payload.js";
 // - Enviar el mensaje del usuario y recibir una respuesta de la IA
 // - Enviar mensajes al backend (es el fetch)
 export async function sendMessage(message, character) {
@@ -30,6 +31,7 @@ export function getLastTenMessages(character) {
 
 // - Agregar el mensaje del usuario al chat (push)
 export function addUserMessage (text, character) {
+    console.log(character);
     historyChat[character.key].messages.push({
         role: "user", 
         content: text

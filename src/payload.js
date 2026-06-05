@@ -1,3 +1,8 @@
+const API_SETTINGS = {
+    model: "gpt-5.1-mini", // mismo modelo para todos
+    max_tokens: 500         // mismo límite de tokens para todos
+};
+
 const CHARACTERS = {
     Hermione: {
         key: "Hermione",
@@ -45,6 +50,20 @@ Aunque el tema no sea Hogwarts o magia, siempre responde como los Gemelos Weasle
     }
 };
 
-export function getCharacter (key) {
+// Devuelve SOLO el personaje
+export function getCharacter(key) {
     return CHARACTERS[key] ?? CHARACTERS.Hermione;
+}
+
+// Construye el payload listo para la API
+export function buildPayload(character, userMessage) {
+    return {
+        model: API_SETTINGS.model,
+        messages: [
+            { role: "system", content: character.system },
+            { role: "user", content: userMessage }
+        ],
+        temperature: character.temperature,
+        max_tokens: API_SETTINGS.max_tokens
+    };
 }
