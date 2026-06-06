@@ -1,5 +1,5 @@
 const API_SETTINGS = {
-    model: "gpt-5.1-mini", // mismo modelo para todos
+    model: "gemini-1.5-chat", // mismo modelo para todos
     max_tokens: 500         // mismo límite de tokens para todos
 };
 

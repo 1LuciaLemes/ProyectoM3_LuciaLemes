@@ -60,28 +60,26 @@ export function renderChat(character) {
     setStatus();
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 3000)); // Simulo la respuesta despues de 3 segundos
+       //Recibe el mensaje del usuario y lo guarda y guarda el mensaje de la respuesta
+        await sendMessage(text, character);
 
-      //Recibe el mensaje del usuario y lo guarda y guarda el mensaje de la respuesta
-      const reply = await sendMessage(text, character);
+        setState({
+          status: "success",
+          data: character
+        });
 
-      setState({
-        status: "success",
-        data: character
-      });
-
-      setStatus();
+        setStatus();
 
     } catch (err) {
-      setState({
-        status: "error",
-        error: err.message
-      });
+        setState({
+          status: "error",
+          error: err.message
+        });
 
-      setStatus();
+        setStatus();
 
     } finally {
-      isSending = false;
+        isSending = false;
     }
   });
 

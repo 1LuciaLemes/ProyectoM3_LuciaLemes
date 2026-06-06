@@ -1,14 +1,35 @@
-import { buildPayload } from "../payload.js";
 // - Enviar el mensaje del usuario y recibir una respuesta de la IA
 // - Enviar mensajes al backend (es el fetch)
 export async function sendMessage(message, character) {
-  addUserMessage(message, character);
+    addUserMessage(message, character);
 
-  const mockResponse = `Respuesta simulada de ${character.name}`;
+   try {
+    // Llamo a la serverless function
+    const res = await fetch("/api/functions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        characterKey: character.key,
+        messages: getLastTenMessages(character)
+      })
+    });
 
-  addIAMessage(mockResponse, character);
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || "Error en la API");
+    }
 
-  return mockResponse;
+    const data = await res.json();
+    const reply = data.reply;
+
+    addIAMessage(reply, character);
+
+    return reply;
+
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message || "Error enviando mensaje a Gemini");
+  }
 }
 
 // Inicializa el array que contiene los mensajes del chat de cada personaje
