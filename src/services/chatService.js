@@ -1,4 +1,4 @@
-import { getLastTenMessages, addIAMessage, addUserMessage } from "../utils";
+import { getLastTenMessages, addIAMessage, addUserMessage } from "../utils.js";
 // - Enviar el mensaje del usuario y recibir una respuesta de la IA
 // - Enviar mensajes al backend (es el fetch)
 export async function sendMessage(message, character) {
