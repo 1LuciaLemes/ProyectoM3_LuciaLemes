@@ -3,13 +3,16 @@ import { getCharacter } from "./payload.js";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
+        console.log("Método no permitido:", req.method);
         return res.status(405).json({
             error: "Method no permitido."
         })
     }
     try {
+        console.log("Request body:", req.body);
         const {characterKey, messages} = req.body;
         if (!characterKey || !Array.isArray(messages)) {
+            console.log("Request body:", req.body);
             return res.status(400).json({
                 error: "Request inválido"
             });
@@ -17,13 +20,16 @@ export default async function handler(req, res) {
 
         const character = getCharacter(characterKey);
         if (!character) {
+            console.log("Personaje no válido:", characterKey);
             return res.status(400).json({
                 error: "Personaje no válido"
             });
         }
+        console.log("Personaje seleccionado:", character.name);
 
         const apiKey = process.env.GEMINI_API_KEY
         if (!apiKey) {
+            console.log("GEMINI_API_KEY no configurada");
             return res.status(500).json({
                 error: "GEMINI_API_KEY no configurada"
             })
@@ -32,6 +38,9 @@ export default async function handler(req, res) {
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({model:"gemini-1.5-flash"});
         
+        console.log("Cantidad de mensajes enviados:", messages.length);
+        console.log("Mensajes enviados:", messages);
+
         const conversationText = messages
         .map(m => `${m.role}: ${m.content}`)
         .join("\n");
@@ -43,13 +52,19 @@ export default async function handler(req, res) {
         ${conversationText}
         `;
 
+        console.log("Prompt generado:", prompt);
+        console.log("Llamando a Gemini...");
+
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 
+        console.log("Texto final recibido de Gemini:", text);
+
         return res.status(200).json({ reply: text });
     } catch (error) {
-        console.error(error);
+        console.error("ERROR COMPLETO EN SERVERLESS:", error);
+        console.error("Mensaje:", error.message);
         return res.status(500).json({ error: "Error generando respuesta" });
     }
 }
