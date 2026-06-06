@@ -62,7 +62,7 @@ export function addUserMessage (text, character) {
 // - Agregar la respuesta al chat (push)
 export function addIAMessage (text, character) {
     historyChat[character.key].messages.push({
-        role: "IA", 
+        role: "model", 
         content: text
     });
 }

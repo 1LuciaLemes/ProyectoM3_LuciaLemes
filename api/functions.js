@@ -41,21 +41,25 @@ export default async function handler(req, res) {
         console.log("Cantidad de mensajes enviados:", messages.length);
         console.log("Mensajes enviados:", messages);
 
-        const conversationText = messages
-        .map(m => `${m.role}: ${m.content}`)
-        .join("\n");
-
-        const prompt = `
-        ${character.system}
         
-        Conversación:
-        ${conversationText}
-        `;
-
-        console.log("Prompt generado:", prompt);
+        
         console.log("Llamando a Gemini...");
 
-        const result = await model.generateContent(prompt);
+        // Construyo el contenido para Gemini
+        const contents = [
+        // Primer mensaje: system del personaje
+        { role: "user", parts: [{ text: character.system }] },
+        // Luego agrego todos los mensajes previos del chat
+        ...messages.map(m => ({
+            role: m.role === "user" ? "user" : "model", // Gemini reconoce 'user' y 'model'
+            parts: [{ text: m.content }]
+        }))
+        ];
+
+        console.log("Contents enviados a Gemini:", contents);
+
+        const result = await model.generateContent({ contents });
+
         const response = await result.response;
         const text = response.text();
 
