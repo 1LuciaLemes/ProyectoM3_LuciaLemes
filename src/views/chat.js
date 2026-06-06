@@ -1,5 +1,5 @@
 import { renderHome } from "./home.js";
-import { getCharacter } from "../payload.js";
+import { getCharacterFront } from "./characters.js";
 import {
   getAllMessages,
   addUserMessage,
@@ -15,7 +15,7 @@ import { setStatus } from "./setStatus.js";
 
 export function renderChat(character) {
   //Sino viene un personaje seleccionado del home, uso el último que se guardó, y sino, hermione
-  character = character || currentCharacter || getCharacter("Hermione");
+  character = character || currentCharacter || getCharacterFront("Hermione");
 
   const app = document.querySelector("#app");
 

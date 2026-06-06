@@ -1,5 +1,5 @@
 import { renderChat } from "./chat.js";
-import { getCharacter } from "../payload.js";
+import { getCharacterFront } from "./characters.js";
 import { updateRouteBadge } from "../router.js";
 import { currentCharacter, setCurrentCharacter } from "../services/chatService.js";
 
@@ -59,11 +59,10 @@ export function renderHome () {
     const character = event.target.closest(".character-container");
     if(!character) return;
 
-    //payload personaje
-    const key = character.dataset.key;
-    const characterPayload = getCharacter(key); // key viene del dataset
-    setCurrentCharacter(characterPayload);      // guardo el payload completo
-    renderChat(characterPayload);               // paso el payload completo al chat
+    const key = character.dataset.key; // Obtiene la clave del personaje clickeado
+    const characterPayload = getCharacterFront(key); // Devuelve el objeto del personaje con nombre, key e imagen
+    setCurrentCharacter(characterPayload); // Guarda el personaje seleccionado globalmente
+    renderChat(characterPayload); // Muestra la vista del chat con ese personaje
 
     //Actualizo la url cuando voy al chat
     history.pushState({ character: key }, "", "/chat");
