@@ -63,8 +63,12 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ reply: text });
     } catch (error) {
-        console.error("ERROR COMPLETO EN SERVERLESS:", error);
-        console.error("Mensaje:", error.message);
-        return res.status(500).json({ error: "Error generando respuesta" });
+        console.error("ERROR REAL:", error);
+        console.error("STACK:", error?.stack);
+
+        return res.status(500).json({
+            error: error.message,
+            details: error.toString()
+        });
     }
 }
