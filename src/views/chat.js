@@ -1,15 +1,14 @@
-import { renderHome } from "./home.js";
 import { getCharacterFront } from "./characters.js";
+import { sendMessage } from "../services/chatService.js";
 import {
   getAllMessages,
   addUserMessage,
   addIAMessage,
   getLastTenMessages,
-  sendMessage
-} from "../services/chatService.js";
+  renderMessages,
+  currentCharacter
+} from "../utils.js";
 
-import { renderMessages } from "../utils.js";
-import { currentCharacter, setCurrentCharacter } from "../services/chatService.js";
 import { getState, setState } from "../state.js";
 import { setStatus } from "./setStatus.js";
 

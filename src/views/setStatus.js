@@ -1,8 +1,6 @@
 // renderStatus.js
 import { getState } from '../state.js';
-import { renderMessages, showTyping, removeTyping} from '../utils.js';
-import { currentCharacter, setCurrentCharacter } from '../services/chatService.js';
-
+import { renderMessages, showTyping, removeTyping, currentCharacter} from '../utils.js';
 
 export function setStatus() {
   const state = getState();

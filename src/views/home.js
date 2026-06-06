@@ -1,7 +1,7 @@
 import { renderChat } from "./chat.js";
 import { getCharacterFront } from "./characters.js";
 import { updateRouteBadge } from "../router.js";
-import { currentCharacter, setCurrentCharacter } from "../services/chatService.js";
+import { setCurrentCharacter } from "../utils.js";
 
 export function renderHome () {
 
