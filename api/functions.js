@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getCharacter } from "../src/payload.js";
+import { getCharacter } from "./payload.js";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
