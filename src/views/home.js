@@ -1,16 +1,11 @@
 import { renderChat } from "./chat.js";
-import { getCharacterFront } from "./characters.js";
+import { getCharacterFront, CHARACTERS_FRONTEND } from "./characters.js";
 import { updateRouteBadge } from "../router.js";
 import { setCurrentCharacter } from "../utils.js";
 
 export function renderHome () {
 
   const app = document.querySelector("#app");
-  const characters = [
-    { name: "Hermione Granger", key: "Hermione", img: "./resource/img/HG.jpg" },
-    { name: "Rubeus Hagrid", key: "Hagrid", img: "./resource/img/HG.jpg" },
-    { name: "Fred y George Weasley", key: "Gemelos", img: "./resource/img/HG.jpg" }
-  ]
 
   app.innerHTML = `
     <div class="view">
@@ -19,42 +14,24 @@ export function renderHome () {
       </div>
 
       <div class="main-container">
-
-        <div class="view">
-          <div class="character-container" data-key="Hermione">
-            <div class="character-image">
-              <img src="./resource/img/HG.jpg" alt="imagen del personaje">
+        ${CHARACTERS_FRONTEND.map(c => `
+          <div class="view">
+            <div class="character-container" data-key="${c.key}">
+              <div class="character-image">
+                <img src="${c.img}" alt="imagen del personaje">
+              </div>
+              <div class="character-name">${c.name}</div>
             </div>
-            <div class="character-name">Nombre del Personaje 1</div>
           </div>
-        </div>
-
-        <div class="view">
-          <div class="character-container" data-key="Hagrid">
-            <div class="character-image">
-              <img src="./resource/img/HG.jpg" alt="imagen del personaje">
-            </div>
-            <div class="character-name">Nombre del Personaje 2</div>
-          </div>
-        </div>
-
-        <div class="view">
-          <div class="character-container" data-key="Gemelos">
-            <div class="character-image">
-              <img src="./resource/img/HG.jpg" alt="imagen del personaje">
-            </div>
-            <div class="character-name">Nombre del Personaje 3</div>
-          </div>
-        </div>
-
+        `).join("")}
       </div>
     </div>
   `;
 
   const conteiner = document.querySelector(".main-container");
-// Busco el contenedor del personaje para poder agregar la función de que 
-// se pueda hacer click en el contenedor del personaje, sea la imagen, 
-// o el nombre para poder ir directo a su chat, con su payload cargado.
+  // Busco el contenedor del personaje para poder agregar la función de que 
+  // se pueda hacer click en el contenedor del personaje, sea la imagen, 
+  // o el nombre para poder ir directo a su chat, con su payload cargado.
   conteiner.addEventListener("click", function(event) {
     const character = event.target.closest(".character-container");
     if(!character) return;
