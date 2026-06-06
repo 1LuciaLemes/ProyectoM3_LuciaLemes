@@ -3,7 +3,7 @@ import { getCharacter } from "./payload.js";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
-        console.log("Método no permitido:", req.method);
+        console.log("Metodo no permitido:", req.method);
         return res.status(405).json({
             error: "Method no permitido."
         })
@@ -47,13 +47,14 @@ export default async function handler(req, res) {
 
         // Construyo el contenido para Gemini
         const contents = [
-        // Primer mensaje: system del personaje
-        { role: "user", parts: [{ text: character.system }] },
-        // Luego agrego todos los mensajes previos del chat
-        ...messages.map(m => ({
-            role: m.role === "user" ? "user" : "model", // Gemini reconoce 'user' y 'model'
-            parts: [{ text: m.content }]
-        }))
+            {
+                role: "user",
+                parts: [{ text: `SYSTEM: ${character.system}` }]
+            },
+            ...messages.map(m => ({
+                role: "user",
+                parts: [{ text: m.content }]
+            }))
         ];
 
         console.log("Contents enviados a Gemini:", contents);
