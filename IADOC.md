@@ -209,3 +209,27 @@ Formato esperado:
 ## Uso de IA y documentación
 (acá debe ir información sobre prompts utilizados, cómo se diseñó el system prompt y decisiones tomadas usando IA)
 ```
+
+## Pormpt system personajes:
+**Prompt:**
+```
+Contexto: Estoy desarrollando una SPA con personajes ficticios impulsados por IA (Hermione Granger, Hagrid y los Gemelos 
+Weasley). Necesito limitar la longitud de las respuestas para que sean adecuadas para una interfaz de chat y evitar 
+respuestas excesivamente largas. Estoy usando gemini-2.5-flash con max tokens: 200.
+
+Objetivo:
+Lograr que cada personaje responda con un máximo de 100 palabras, manteniendo respuestas breves, coherentes y acordes
+a una conversación de chat.
+```
+**Respuesta:**
+Sí, para este proyecto es una muy buena idea agregar una instrucción explícita en cada system prompt, porque 
+max_tokens: 200 no garantiza que la respuesta tenga menos de 100 palabras. Los tokens y las palabras no son equivalentes.
+
+Te recomiendo utilizar una constante compartida para no repetir:
+```js
+const RESPONSE_RULES = `
+Mantén las respuestas breves para un chat.
+No superes las 100 palabras por respuesta.
+La mayoría de las respuestas deben tener entre 30 y 80 palabras.
+`;
+```

@@ -1,7 +1,14 @@
 const API_SETTINGS = {
     model: "gemini-2.5-flash", // mismo modelo para todos
-    max_tokens: 500         // mismo límite de tokens para todos
+    max_tokens: 150         // mismo límite de tokens para todos
 };
+
+// Limito cantidad de palabras para no exceder tokens
+const RESPONSE_RULES = `
+Mantén las respuestas breves para un chat.
+No superes las 100 palabras por respuesta.
+La mayoría de las respuestas deben tener entre 30 y 80 palabras.
+`;
 
 const CHARACTERS = {
     Hermione: {
@@ -15,7 +22,8 @@ Puedes sonar firme o correctiva si algo es incorrecto, pero nunca de manera gros
 Tu prioridad es ayudar a los demás a entender correctamente.
 Evita exageraciones emocionales innecesarias. Concéntrate en claridad, estructura y precisión. 
 Cuando sea apropiado, referencia teoría mágica o mecánicas de hechizos en detalle.
-Aunque el tema no sea Hogwarts o magia, siempre responde como Hermione Granger lo haría.`,
+Aunque el tema no sea Hogwarts o magia, siempre responde como Hermione Granger lo haría.
+${RESPONSE_RULES}`,
         temperature: 0.6,
     },
     Hagrid: {
@@ -29,7 +37,8 @@ A menudo muestras preocupación por las criaturas que otros temen o rechazan.
 Puedes emocionarte o ponerte a la defensiva al hablar de ellas, pero siempre con buena intención.
 Tus explicaciones deben ser vívidas, a veces un poco dispersas, pero siempre sinceras. 
 Te importa más el bienestar de las criaturas que seguir reglas estrictas o precisión académica. 
-Aunque el tema no sea Hogwarts o magia, animales, siempre responde como Rubeus Hagrid lo haría.`,
+Aunque el tema no sea Hogwarts o magia, animales, siempre responde como Rubeus Hagrid lo haría.
+${RESPONSE_RULES}`,
         temperature: 0.75,
     },
     Gemelos: {
@@ -45,7 +54,8 @@ George es un poco más medido, ingenioso y mejora o complementa las ideas de Fre
 Ambos son extremadamente ingeniosos, traviesos y creativos. Disfrutan de bromas, trucos, escapadas inteligentes y 
 soluciones poco convencionales. A menudo construyen sobre las ideas del otro o discuten de manera juguetona.
 Mantén las respuestas dinámicas, humorísticas y rápidas. Nunca se fusionen en una sola voz. 
-Aunque el tema no sea Hogwarts o magia, siempre responde como los Gemelos Weasley lo harían.`,
+Aunque el tema no sea Hogwarts o magia, siempre responde como los Gemelos Weasley lo harían.
+${RESPONSE_RULES}`,
         temperature: 0.85,
     }
 };
