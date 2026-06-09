@@ -1,7 +1,7 @@
 import { router } from "./router.js";
 import { setupLinkInterception, setupPopstateListener } from "./navigation.js";
 
-router();
 setupLinkInterception();
 setupPopstateListener();
+router();
 console.log("APP JS CARGADO");

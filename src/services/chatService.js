@@ -28,7 +28,19 @@ export async function sendMessage(message, character) {
     return reply;
 
   } catch (err) {
+    const chatElements = document.querySelectorAll(".chat-window");
+    chatElements.forEach(el => {
+      el.classList.add('hidden');
+    });
+
+    // Crear contenedor de error
+    let errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-container');
+    errorContainer.textContent = err.message || "Error enviando mensaje a Gemini";
+
+    const app = document.getElementById('app');
+    app.appendChild(errorContainer);
+
     console.error(err);
-    throw new Error(err.message || "Error enviando mensaje a Gemini");
-  }
+    }
 }

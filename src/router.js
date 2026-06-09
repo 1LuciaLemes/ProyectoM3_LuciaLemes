@@ -13,7 +13,9 @@ const routes = {
 export function router () {
     const path = normalizePath(window.location.pathname);
     const render = routes[path] || renderNotFound;
+
     render ();
+
     updateActiveLink();
     updateRouteBadge(path);
 }
@@ -22,6 +24,7 @@ export function router () {
 // la misma y guardo el historial por si hago back/forward
 export function navigateTo(path) {
     if(path === normalizePath(window.location.pathname)) return;
+
     history.pushState(null, "", path);
     router();
 }
@@ -30,13 +33,10 @@ export function navigateTo(path) {
 // (si están o no clickeados actualmente)
 function updateActiveLink() {
   const currentPath = normalizePath(window.location.pathname);
-  document.querySelectorAll("nav a").forEach((link) => {
-    const linkPath = normalizePath(link.pathname);
-    if (link.origin === window.location.origin && linkPath === currentPath) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
+
+  document.querySelectorAll(".navbar__links a").forEach((link) => {
+    const linkPath = normalizePath(link.getAttribute("href"));
+    link.classList.toggle("active", linkPath === currentPath);
   });
 }
 

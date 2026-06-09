@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "local": "npx --yes vercel dev",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
@@ -18,6 +19,7 @@
     "vitest": "^4.1.8"
   },
   "dependencies": {
-    "@google/generative-ai": "0.21.0"
+    "@google/generative-ai": "0.21.0",
+    "vercel": "^54.10.2"
   }
 }
