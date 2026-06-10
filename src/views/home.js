@@ -1,7 +1,7 @@
 import { renderChat } from "./chat.js";
 import { getCharacterFront, CHARACTERS_FRONTEND } from "./characters.js";
-import { updateRouteBadge } from "../router.js";
 import { setCurrentCharacter } from "../utils.js";
+
 
 export function renderHome() {
   const app = document.querySelector("#app");
@@ -47,8 +47,14 @@ export function renderHome() {
 
     //Actualizo la url cuando voy al chat
     history.pushState({ character: key }, "", "/chat");
-    updateRouteBadge("/chat");
     console.log("elegiste el", { characters: key });
+
+    document
+      .querySelectorAll(".navbar__links a")
+      .forEach((el) => el.classList.remove("active"));
+
+    const chatLink = document.querySelector('.navbar__links a[href="/chat"]');
+    if (chatLink) chatLink.classList.add("active");
   });
 
   document.addEventListener("click", (e) => {

@@ -17,6 +17,7 @@ export function renderAbout () {
         Cada personaje tiene una pequeña descripción: Hermione es inteligente y lógica, Hagrid es cariñoso y protector, 
         y los Gemelos Weasley son bromistas y traviesos. ¡Elige tu personaje y comienza a chatear!
       </p>
+      <div style="height: 50px"></div>
     </div>
     `
 }
