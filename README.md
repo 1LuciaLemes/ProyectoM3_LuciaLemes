@@ -142,6 +142,41 @@ npm run test
 ```
 [Volver al índice](#índice)
 
+### Ejecutar localmente con Vercel
+Puedes probar la SPA localmente antes de realizar el despliegue en Vercel, debes realizar los siguientes pasos:
+1. Instalar vercel CLI:
+Abre tu terminal en la carpeta del proyecto y ejecuta:<br>
+ `npm install -g vercel`<br>
+*Esto instala el CLI de Vercel de manera global para poder usar el comando vercel desde cualquier lugar.*
+
+2. Después de instalar, tenés que autenticarte:<br>
+`vercel login`<br>
+- Te va a pedir tu email de Vercel.
+- Te envían un link de confirmación a tu correo.
+- Una vez que hagas clic, la terminal quedará conectada a tu cuenta.
+
+3. Si es la primera vez que conectás este proyecto:
+```
+vercel
+```
+Te pregunta cosas como:
+- Nombre del proyecto (podés dejar el mismo que la carpeta)
+- Qué carpeta desplegar (. si es la raíz)
+- Framework o SPA (si no lo detecta, podés elegir “Other”)
+
+Esto genera un archivo vercel.json opcional y configura tu proyecto.
+
+4. Script
+- Importante: Vercel necesita un build script (npm run build) para desplegar.
+- Por lo que en nuestro package.json debemos agregar:
+```
+"local": "npx --yes vercel dev"
+```
+5. Para probar localmente:
+
+En la terminal debes poner el siguiente código y esto te proporcionará la url local para probar.<br>
+`npm run dev o vercel dev`
+
 ## Despliegue en Vercel
 
 El proyecto está diseñado para desplegarse fácilmente en Vercel, incluso si aún no tienes una cuenta.  

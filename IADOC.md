@@ -5,6 +5,7 @@
 ## Introducción
 
 Breve explicación del objetivo de esta documentación: detallar cómo se integra Google Gemini en el proyecto, cómo se estructuran los prompts y cómo funciona la comunicación con el backend.
+
 ## ChatService
 **Prompt 1:** 
 ```
@@ -137,8 +138,163 @@ Ventajas de este cambio:
 - Se construye el array contents incluyendo el system prompt del personaje y el historial de mensajes previos.
 - Se envía contents a la API de Google Gemini usando model.generateContent.
 - Se devuelve la respuesta al frontend para que se renderice en la interfaz de chat.
+
+## Pormpt system personajes:
+**Prompt:**
+```
+Contexto: Estoy desarrollando una SPA con personajes ficticios impulsados por IA (Hermione Granger, Hagrid y los Gemelos 
+Weasley). Necesito limitar la longitud de las respuestas para que sean adecuadas para una interfaz de chat y evitar 
+respuestas excesivamente largas. Estoy usando gemini-2.5-flash con max tokens: 200.
+
+Objetivo:
+Lograr que cada personaje responda con un máximo de 100 palabras, manteniendo respuestas breves, coherentes y acordes
+a una conversación de chat.
+```
+**Respuesta:**
+Sí, para este proyecto es una muy buena idea agregar una instrucción explícita en cada system prompt, porque 
+max_tokens: 200 no garantiza que la respuesta tenga menos de 100 palabras. Los tokens y las palabras no son equivalentes.
+
+Te recomiendo utilizar una constante compartida para no repetir:
+```js
+const RESPONSE_RULES = `
+Mantén las respuestas breves para un chat.
+No superes las 100 palabras por respuesta.
+La mayoría de las respuestas deben tener entre 30 y 80 palabras.
+`;
+```
+
+## Estilo CSS y funcionalidades aplicadas a estilo:
+### 1. Cambio de temas, claro/ocurso:
+**Prompt:**
+```
+Estoy realizando una SPA y quiero poder cambiar estéticamente el tema de oscuro a claro.
+Simplemente quiero que se intercambien los colores.
+
+Necesito que me expliques:
+
+- Cómo debería añadirse en el código lógico con JavaScript para cambiar el tema al hacer clic en un botón.
+- Cómo puedo guardar la preferencia del usuario para que cuando recargue la página siga viendo el tema elegido.
+- Cómo organizar los colores usando variables CSS (:root) para el tema oscuro y body.light para el tema claro.
+- Ejemplo simple de CSS y JS que haga que funcione todo junto.
+```
+**Respuesta**
+Te doy un ejemplo de cómo debes hacer, define primero los colores de tu tema oscuro por defecto en :root y los colores del tema claro en body.light:
+```js
+/* Tema oscuro por defecto */
+:root {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --accent-color: #f0c674;
+}
+
+/* Tema claro */
+body.light {
+  --bg-color: #ffffff;
+  --text-color: #1e1e1e;
+  --accent-color: #ffcc00;
+}
+
+/* Aplica las variables a tu app */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+```
+En el código JavaScript tienes que agregar lo siguiente:
+```js
+// Recupera el tema guardado o usa oscuro por defecto
+const savedTheme = localStorage.getItem("theme") || "dark";
+document.body.classList.toggle("light", savedTheme === "light");
+
+// Botón para cambiar el tema
+const btn = document.querySelector(".changeTheme");
+if (btn) {
+  btn.addEventListener("click", () => {
+    // Alterna la clase 'light'
+    const isLight = document.body.classList.toggle("light");
+
+    // Guarda la preferencia en localStorage
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+}
+```
+### 2. Transformación del nombre de los personajes en /home
+**Prompt:**
+```
+Quiero mostrar un texto en HTML de manera vertical, como si cada letra estuviera apilada de arriba hacia abajo.
+
+No sé qué propiedad CSS usar para esto.
+
+Necesito que me expliques:
+
+- Cómo lograrlo con CSS puro, sin separar cada letra manualmente ni usar JavaScript para dividir el texto.
+- Qué propiedades CSS permiten que el texto se muestre en vertical como en un cartel o título.
+- Un ejemplo simple de HTML y CSS que funcione para cualquier palabra o frase.
+```
+**Respuesta:**
+Para lograr que un texto se muestre en vertical (una letra debajo de la otra) puedes hacerlo directamente con CSS, sin necesidad de separar las letras ni usar JavaScript.
+
+La forma más simple es usando una propiedad de CSS que permite cambiar la dirección en la que se escribe el texto.
+HTML:
+```html
+<p class="vertical-text">Hola Mundo</p>
+```
+CSS:
+```css
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+```
+- `writing-mode: vertical-rl;`<br>
+Hace que el texto se escriba en vertical, de arriba hacia abajo.<br>
+- `text-orientation: upright;`<br>
+Hace que las letras se mantengan “derechas” y no giradas.
+
+Respuesta visual aproximada:
+```
+H
+o
+l
+a
+
+M
+u
+n
+d
+o
+```
+### 3. Cambiar el hover del navbar cuando accedo al chat desde el personaje:
+**Prompt:**
+```
+Estoy desarrollando una SPA en JavaScript sin frameworks.
+
+En el home (/home) tengo un selector de personajes; al hacer clic en uno, navego al chat usando history.pushState.
+También tengo un navbar con links (Home, Chat, etc.).
+
+Necesito que:
+
+- Cuando navego desde el home al chat, el link correspondiente del navbar se marque como activo (active), como si estuviera en hover o seleccionado.
+- La solución funcione incluso si la navegación no viene de un click directo en el navbar, sino desde hacer click en un botón.
+```
+**Respuesta:**
+El código proporcionado por la IA fue:
+```js
+history.pushState en home
+document
+  .querySelectorAll(".navbar__links a")
+  .forEach((el) => el.classList.remove("active"));
+
+const chatLink = document.querySelector('.navbar__links a[href="/chat"]');
+if (chatLink) chatLink.classList.add("active");
+```
 ## Realización del README:
-**prompt:**
+**Prompt:**
 ``` 
 Actúa como un experto en documentación de proyectos frontend.
 
@@ -208,28 +364,4 @@ Formato esperado:
 
 ## Uso de IA y documentación
 (acá debe ir información sobre prompts utilizados, cómo se diseñó el system prompt y decisiones tomadas usando IA)
-```
-
-## Pormpt system personajes:
-**Prompt:**
-```
-Contexto: Estoy desarrollando una SPA con personajes ficticios impulsados por IA (Hermione Granger, Hagrid y los Gemelos 
-Weasley). Necesito limitar la longitud de las respuestas para que sean adecuadas para una interfaz de chat y evitar 
-respuestas excesivamente largas. Estoy usando gemini-2.5-flash con max tokens: 200.
-
-Objetivo:
-Lograr que cada personaje responda con un máximo de 100 palabras, manteniendo respuestas breves, coherentes y acordes
-a una conversación de chat.
-```
-**Respuesta:**
-Sí, para este proyecto es una muy buena idea agregar una instrucción explícita en cada system prompt, porque 
-max_tokens: 200 no garantiza que la respuesta tenga menos de 100 palabras. Los tokens y las palabras no son equivalentes.
-
-Te recomiendo utilizar una constante compartida para no repetir:
-```js
-const RESPONSE_RULES = `
-Mantén las respuestas breves para un chat.
-No superes las 100 palabras por respuesta.
-La mayoría de las respuestas deben tener entre 30 y 80 palabras.
-`;
 ```

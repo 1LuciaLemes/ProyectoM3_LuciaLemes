@@ -12,12 +12,12 @@
   --bg-input-row: #351b227a;
 
   /* TEXTOS */
-  --text: rgb(220, 220, 220);
+  --text: #dcdcdc;
   --text-navbar: #e45f5f;
-  --text-about: white;
+  --text-about: #ffffff;
   --text-characters: #e45f5f;
-  --text-btn: white;
-  --text-btn-hover: white;
+  --text-btn: #ffffff;
+  --text-btn-hover: #ffffff;
 
   /* ACCIONES / UI */
   --navbar-hover: #a44f4fb2;
@@ -30,37 +30,37 @@
   --send-btn: #351b22;
   --send-btn-hover: #a44f4fb2;
 
-  --border-character-container-hover: rgba(255, 188, 217, 0.574);
-  --box-shadow-characters-container-hover:rgba(255, 167, 167, 0.5);
+  --border-character-container-hover: #ffbcd992;
+  --box-shadow-characters-container-hover:#ffa7a780;
 }
 
 body.light {
-  --bg: rgba(255, 255, 255, 0.905);
-  --bg-header: rgb(118, 89, 89, 0.662);
-  --bg-characters: rgb(242, 186, 196);
+  --bg: #ffffffe7;
+  --bg-header: #765959a9;
+  --bg-characters: #f2bac4;
   --bg-chat: #feeaf3;
-  --bg-input: rgb(255, 255, 255);
-  --bg-input-row: rgba(118, 89, 89, 0.662);
+  --bg-input: #ffffff;
+  --bg-input-row: #765959a9;
 
-  --text: black;
-  --text-navbar: rgb(59, 59, 59);
-  --text-about: black;
-  --text-characters: rgb(223, 59, 86);
-  --text-btn: rgb(101, 101, 101);
-  --text-btn-hover: white;
+  --text: #000000;
+  --text-navbar: #3b3b3b;
+  --text-about: #000000;
+  --text-characters: #df3b56;
+  --text-btn: #656565;
+  --text-btn-hover: #ffffff;
 
-  --navbar-hover: rgb(227, 94, 94);
+  --navbar-hover: #e35e5e;
   --message-bot-bg: #e7d4d8;
   --message-user-bg: #f2b8c6;
-  --message-text: black;
+  --message-text: #000000;
 
   --input-border: #464646;
   --input-focus: #c94465;
   --send-btn: #e5c4c4;
-  --send-btn-hover: rgb(227, 94, 94);
+  --send-btn-hover: #e35e5e;
 
-  --border-character-container-hover: rgba(194, 16, 93, 0.574);
-  --box-shadow-characters-container-hover:rgba(150, 14, 14, 0.5);
+  --border-character-container-hover: #c2105d92;
+  --box-shadow-characters-container-hover:#960e0e80;
 }
 
 html {
@@ -95,7 +95,7 @@ header {
   padding: 0 20px;
 
   background-color: var(--bg-header);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px #0000001a;
   z-index: 1000;
 }
 
@@ -153,7 +153,7 @@ body.light .changeTheme:hover {
 .navbar__links a:hover,
 .navbar__links a.active {
   background-color: var(--navbar-hover);
-  color: white;
+  color: #ffffff;
 }
 
 /* MAIN*/
@@ -167,7 +167,7 @@ main {
 
 /* -- HOME DE MOBILE -- */
 .title {
-  color: rgb(151, 151, 151);
+  color: #979797;
   font-weight: 600;
 }
 
@@ -256,7 +256,7 @@ main {
 }
 
 body.light .chat-window {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px #00000033;
 }
 
 /* MENSAJES */
@@ -532,7 +532,7 @@ body.light .chat-window {
 
 /* status */
 .loading {
-  color: black;
+  color: #000000;
 }
 .hidden {
   display: none;
@@ -540,7 +540,7 @@ body.light .chat-window {
 
 .error-container {
   background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  color: #000000;
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 8px;
