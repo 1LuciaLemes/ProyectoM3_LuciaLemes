@@ -16,8 +16,11 @@
 El siguiente link te proporcionará acceso a la app:
 https://proyecto-m3-lucia-lemes.vercel.app/
 
-El siguiente gif describe visualmente la APP:
-![Gif de la app](./resource/GifAPP/Compartir%20pantalla%20-%202026-06-10%2022_51_11.mp4)
+### Versión modo oscuro
+![Gif app modo oscuro](./resource/GifAPP/darkmode.gif)
+
+### Versión modo claro
+![Gif app modo claro](./resource/GifAPP/lightmode.gif)
 
 
 ## Descripción del proyecto
