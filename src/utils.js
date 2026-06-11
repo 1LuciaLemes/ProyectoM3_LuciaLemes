@@ -1,3 +1,5 @@
+import { getCharacterFront } from "./views/characters.js";
+
 // -- UTILS DE CHAT --
 // Inicializa el array que contiene los mensajes del chat de cada personaje
 const historyChat = {
@@ -46,7 +48,8 @@ export function addIAMessage (text, character) {
 // Guardo el personaje de forma global para poder mantener el historial anterior
 // en caso de directamente renderizar el chat
 export let currentCharacter = null;
-  
+
+
 export function setCurrentCharacter(character) {
   currentCharacter = character;
 }

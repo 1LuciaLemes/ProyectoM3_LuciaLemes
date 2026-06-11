@@ -13,7 +13,12 @@
 - [Uso de IA y documentación](#uso-de-ia-y-documentación)
 
 ## Demo / URL pública
-(acá debe ir un GIF o imagen que muestre cómo se ve y se usa la aplicación, además del enlace público en Vercel)
+El siguiente link te proporcionará acceso a la app:
+https://proyecto-m3-lucia-lemes.vercel.app/
+
+El siguiente gif describe visualmente la APP:
+![Gif de la app](./resource/GifAPP/Compartir%20pantalla%20-%202026-06-10%2022_51_11.mp4)
+
 
 ## Descripción del proyecto
 El objetivo principal es crear una **Single Page Application (SPA)** que permita a los usuarios chatear con un personaje ficticio utilizando **Google Gemini AI**. La aplicación está diseñada con un enfoque **mobile-first**, garantizando una experiencia óptima en dispositivos móviles y adaptándose de forma responsive a diferentes tamaños de pantalla.
@@ -63,6 +68,7 @@ project-root/
 │
 ├── resource
 │   ├── img/                        # Todas las imágenes utilizadas
+│   ├── gifAPP/                     # Gif representativo de la APP
 │   └── icons/                      # Todos los íconos utilizados
 │ 
 │   
@@ -123,9 +129,9 @@ El proyecto incluye tests unitarios utilizando **Vitest** para validar la lógic
 
 #### Qué se testea
 
-Se implementaron tests unitarios sobre las funciones de `utils.js`, que manejan la lógica principal del chat y utilidades de la aplicación.
+Se implementaron tests unitarios sobre las funciones de `utils.js` y tests de integración ligera sobre `app.js`, que maneja el envío de mensajes al backend.
 
-En particular, se valida:
+Funciones de utils.js: 
 
 - El agregado de mensajes del usuario (`addUserMessage`), evitando mensajes vacíos o con solo espacios.
 - El agregado de mensajes de la IA (`addIAMessage`).
@@ -133,7 +139,13 @@ En particular, se valida:
 - La limpieza del historial entre tests (`resetHistory`).
 - La normalización de rutas (`normalizePath`).
 - El correcto flujo de conversación entre usuario e IA.
-- El comportamiento básico de inicialización de la aplicación sin errores.
+
+Función sendMessage (en app.js):
+- Se verifica que devuelva la respuesta simulada de la IA.
+- Se simula el comportamiento de fetch mediante mocks para controlar la dependencia externa.
+- Se asegura que se envía un POST al endpoint correcto con la estructura adecuada.
+- Aunque simula la comunicación con el backend, se prueba dentro de un contexto cercano a la integración real.
+- Comportamiento básico de inicialización de la aplicación sin errores.
 
 ### Ejecución de tests
 

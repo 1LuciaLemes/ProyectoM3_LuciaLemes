@@ -1,5 +1,5 @@
 const API_SETTINGS = {
-    model: "gemini-2.5-flash", // mismo modelo para todos
+    model: "gemini-3.1-flash-lite", // mismo modelo para todos
     max_tokens: 150         // mismo límite de tokens para todos
 };
 

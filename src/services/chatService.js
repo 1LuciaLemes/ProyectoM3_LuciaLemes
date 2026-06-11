@@ -2,7 +2,6 @@ import { getLastTenMessages, addIAMessage, addUserMessage } from "../utils.js";
 // - Enviar el mensaje del usuario y recibir una respuesta de la IA
 // - Enviar mensajes al backend (es el fetch)
 export async function sendMessage(message, character) {
-    addUserMessage(message, character);
 
    try {
     // Llamo a la serverless function
@@ -22,8 +21,6 @@ export async function sendMessage(message, character) {
 
     const data = await res.json();
     const reply = data.reply;
-
-    addIAMessage(reply, character);
 
     return reply;
 
